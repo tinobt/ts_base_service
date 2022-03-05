@@ -10,16 +10,14 @@ class App {
 
   constructor(controllers: Controller[]) {
     this.app = express();
-
-    this.connectToTheDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();
   }
 
   public listen() {
-    this.app.listen(process.env.PORT, () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
+    this.app.listen(3000, () => {
+      console.log('Listening on port 3000...');
     });
   }
 
@@ -37,19 +35,12 @@ class App {
   }
 
   private initializeControllers(controllers: Controller[]) {
+    console.log(controllers);
     controllers.forEach((controller) => {
       this.app.use('/', controller.router);
     });
   }
 
-  private connectToTheDatabase() {
-    const {
-      MONGO_USER,
-      MONGO_PASSWORD,
-      MONGO_PATH,
-    } = process.env;
-    mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
-  }
 }
 
 export default App;
