@@ -1,14 +1,13 @@
 import * as mongoose from 'mongoose';
 import * as request from 'supertest';
 import App from '../../app';
-import CreateUserDto from '../../user/user.dto';
 import AuthenticationController from '../authentication.controller';
 
 describe('The AuthenticationController', () => {
   describe('POST /auth/register', () => {
     describe('if the email is not taken', () => {
       it('response should have the Set-Cookie header with the Authorization token', () => {
-        const userData: CreateUserDto = {
+        const userData = {
           name: 'John Smith',
           email: 'john@smith.com',
           password: 'strongPassword123',
